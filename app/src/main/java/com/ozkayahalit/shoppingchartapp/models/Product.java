@@ -15,8 +15,6 @@ public class Product {
     private boolean isAvailable;
     private  String imageUrl;
 
-    private ImageView benimResim;
-
     public Product(String id, String name, double price, boolean isAvailable, String imageUrl) {
         this.id = id;
         this.name = name;

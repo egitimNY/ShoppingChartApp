@@ -5,15 +5,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
+import com.ozkayahalit.shoppingchartapp.R;
 import com.ozkayahalit.shoppingchartapp.adapters.ShopListAdapter;
 import com.ozkayahalit.shoppingchartapp.databinding.FragmentShopBinding;
 import com.ozkayahalit.shoppingchartapp.models.Product;
@@ -27,8 +29,7 @@ public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterf
     FragmentShopBinding fragmentShopBinding;
     private ShopListAdapter shopListAdapter;
     private ShopViewModel shopViewModel;
-
-    private ImageView benimResim;
+    private NavController navController;
 
     public ShopFragment() {
         // Required empty public constructor
@@ -64,8 +65,7 @@ public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterf
             }
         });
 
-
-
+        navController = Navigation.findNavController(view);
     }
     @Override
     public void addItem(Product product) {
@@ -75,5 +75,7 @@ public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterf
     @Override
     public void onItemClick(Product product) {
         Log.d(TAG, "onItemClick: " + product.toString());
+        shopViewModel.setProduct(product);
+        navController.navigate(R.id.action_shopFragment_to_productDetailFragment);
     }
 }
