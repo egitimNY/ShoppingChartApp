@@ -1,6 +1,7 @@
 package com.ozkayahalit.shoppingchartapp.views;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterface {
 
+    private static final String TAG = "ShopFragment";
     FragmentShopBinding fragmentShopBinding;
     private ShopListAdapter shopListAdapter;
     private ShopViewModel shopViewModel;
@@ -47,7 +49,7 @@ public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterf
 
 
 
-        shopListAdapter = new ShopListAdapter();
+        shopListAdapter = new ShopListAdapter(this);
         fragmentShopBinding.shopRecyclerView.setAdapter(shopListAdapter);
         fragmentShopBinding.shopRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),
                 DividerItemDecoration.VERTICAL));
@@ -72,6 +74,6 @@ public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterf
 
     @Override
     public void onItemClick(Product product) {
-
+        Log.d(TAG, "onItemClick: " + product.toString());
     }
 }
