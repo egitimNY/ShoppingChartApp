@@ -23,15 +23,15 @@ public class ShopRepo {
 
     private void loadProducts(){
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(UUID.randomUUID().toString(),"iPhone 21", 1299, true,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/19.jpeg"));
-        productList.add(new Product(UUID.randomUUID().toString(),"MacBook 1", 15, false,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/18.jpeg"));
+        productList.add(new Product(UUID.randomUUID().toString(),"iPhone 21", 1299, false,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/19.jpeg"));
+        productList.add(new Product(UUID.randomUUID().toString(),"MacBook 1", 15, true,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/18.jpeg"));
         productList.add(new Product(UUID.randomUUID().toString(),"Windows 10 21", 45, true,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/17.jpeg"));
-        productList.add(new Product(UUID.randomUUID().toString(),"Computer 21", 5, false,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/15.jpeg"));
+        productList.add(new Product(UUID.randomUUID().toString(),"Computer 21", 5, true,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/15.jpeg"));
 
         productList.add(new Product(UUID.randomUUID().toString(),"Camera 21", 1299, true,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/19.jpeg"));
         productList.add(new Product(UUID.randomUUID().toString(),"Light 1", 15, false,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/18.jpeg"));
         productList.add(new Product(UUID.randomUUID().toString(),"Jacket 21", 45, true,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/17.jpeg"));
-        productList.add(new Product(UUID.randomUUID().toString(),"T-Shirt 21", 5, false,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/15.jpeg"));
+        productList.add(new Product(UUID.randomUUID().toString(),"T-Shirt 21", 5, true,"https://ozkayahalit.com/Haerul/demo_pets/pets_picture/15.jpeg"));
         mutableProductList.setValue(productList);
     }
 }
