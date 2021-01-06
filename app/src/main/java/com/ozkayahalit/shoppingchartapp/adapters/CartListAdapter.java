@@ -3,6 +3,7 @@ package com.ozkayahalit.shoppingchartapp.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
@@ -26,6 +27,7 @@ public class CartListAdapter extends ListAdapter<CartItem, CartListAdapter.CartV
         CartRowBinding cartRowBinding  = CartRowBinding.inflate(layoutInflater, parent,
                 false);
         return new CartVH(cartRowBinding);
+
     }
 
     @Override
@@ -48,10 +50,27 @@ public class CartListAdapter extends ListAdapter<CartItem, CartListAdapter.CartV
                     cartInterface.deleteItem(getItem(getAdapterPosition()));
                 }
             });
+
+            cartRowBinding.quantitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                    int quantity = position +1;
+                    if (quantity == getItem(getAdapterPosition()).getQuantity()) {
+                        return;
+                    }
+                    cartInterface.changeQuantity(getItem(getAdapterPosition()), quantity);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
         }
     }
 
     public interface CartInterface {
         void deleteItem(CartItem cartItem);
+        void changeQuantity(CartItem cartItem, int quantity);
     }
 }

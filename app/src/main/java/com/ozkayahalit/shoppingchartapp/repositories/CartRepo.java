@@ -57,8 +57,18 @@ public class CartRepo {
             return;
         }
         List<CartItem> cartItemList = new ArrayList<>(mutableCart.getValue());
-
         cartItemList.remove(cartItem);
+        mutableCart.setValue(cartItemList);
+    }
+
+    public void changeQuantity(CartItem cartItem, int quantity){
+        if (mutableCart.getValue() == null) return;
+
+        List<CartItem> cartItemList = new ArrayList<>(mutableCart.getValue());
+
+        CartItem updatedItem = new CartItem(cartItem.getProduct(), quantity);
+        cartItemList.set(cartItemList.indexOf(cartItem), updatedItem);
+
         mutableCart.setValue(cartItemList);
     }
 }
