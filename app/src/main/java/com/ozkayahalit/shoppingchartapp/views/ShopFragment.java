@@ -1,7 +1,6 @@
 package com.ozkayahalit.shoppingchartapp.views;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.ozkayahalit.shoppingchartapp.R;
 import com.ozkayahalit.shoppingchartapp.adapters.ShopListAdapter;
 import com.ozkayahalit.shoppingchartapp.databinding.FragmentShopBinding;
@@ -70,7 +70,19 @@ public class ShopFragment extends Fragment implements ShopListAdapter.ShopInterf
     @Override
     public void addItem(Product product) {
         boolean isAdded = shopViewModel.addItemToCart(product);
-        Log.d(TAG, "addItem: " + product.getName() + isAdded);
+        if (isAdded) {
+            Snackbar.make(requireView(), product.getName() + " added to cart. ", Snackbar.LENGTH_LONG)
+                    .setAction("checkout", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            navController.navigate(R.id.action_shopFragment_to_cartFragment);
+                        }
+                    })
+                    .show();
+        }else {
+            Snackbar.make(requireView(), product.getName() + " Already have the max quantity in cart. ", Snackbar.LENGTH_LONG)
+                    .show();
+        }
 
     }
 
