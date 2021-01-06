@@ -1,6 +1,7 @@
 package com.ozkayahalit.shoppingchartapp.adapters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,8 +13,10 @@ import com.ozkayahalit.shoppingchartapp.models.CartItem;
 
 public class CartListAdapter extends ListAdapter<CartItem, CartListAdapter.CartVH> {
 
-    public CartListAdapter() {
+    private CartInterface cartInterface;
+    public CartListAdapter(CartInterface cartInterface) {
         super(CartItem.itemCallback);
+        this.cartInterface =cartInterface;
     }
 
     @NonNull
@@ -38,6 +41,17 @@ public class CartListAdapter extends ListAdapter<CartItem, CartListAdapter.CartV
         public CartVH(@NonNull CartRowBinding cartRowBinding) {
             super(cartRowBinding.getRoot());
             this.cartRowBinding = cartRowBinding;
+
+            cartRowBinding.deleteProductButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    cartInterface.deleteItem(getItem(getAdapterPosition()));
+                }
+            });
         }
+    }
+
+    public interface CartInterface {
+        void deleteItem(CartItem cartItem);
     }
 }

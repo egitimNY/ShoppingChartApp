@@ -19,7 +19,7 @@ import com.ozkayahalit.shoppingchartapp.viewmodels.ShopViewModel;
 
 import java.util.List;
 
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements CartListAdapter.CartInterface {
     private static final String TAG = "CartFragment";
     ShopViewModel shopViewModel;
     FragmentCartBinding fragmentCartBinding;
@@ -40,7 +40,7 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        CartListAdapter cartListAdapter = new CartListAdapter();
+        CartListAdapter cartListAdapter = new CartListAdapter(this);
 
         fragmentCartBinding.cartRecyclerView.setAdapter(cartListAdapter);
         fragmentCartBinding.cartRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),
@@ -54,5 +54,12 @@ public class CartFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void deleteItem(CartItem cartItem) {
+//        Log.d(TAG, "deleteItem: " + cartItem.getProduct().getName() );
+        shopViewModel.removeItemFromCart(cartItem);
+
     }
 }
