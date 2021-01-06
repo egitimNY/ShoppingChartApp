@@ -1,5 +1,8 @@
 package com.ozkayahalit.shoppingchartapp.views;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+        boolean ifShowDialog = preferences.getBoolean("showDialog", true);
+        if (ifShowDialog) {
+            showDialog();
+        }
+
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController);
         shopViewModel = new ViewModelProvider(this).get(ShopViewModel.class);
@@ -48,7 +57,40 @@ public class MainActivity extends AppCompatActivity {
                 invalidateOptionsMenu();
             }
         });
+
+
     }
+
+
+    private void showDialog(){
+        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder
+                .setCancelable(false)
+                .setMessage("The information provided in app though is compiled with utmost care,the app can not guarantee that this information is and stays 100% accurate. We therefore reserve all right of app and accept no liability for any kind of damage directly or indirectly that can come from the use or not able the information and functionality provided by app.\n\nThis Agreement shall be governed by the laws of the State of New York, NY")
+                .setPositiveButton("DENY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+                        finish();
+
+                    }
+                })
+                .setNeutralButton("ACCEPT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                        SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean("showDialog",false);
+                        editor.apply();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {
